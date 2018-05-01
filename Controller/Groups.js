@@ -4,40 +4,41 @@ function Groups(){
 
 Groups.prototype={
     AddGroup:
-    function AddGroup(groupName){
-        if(this.IsGroupExists(this.groups, groupName) === false) {
-            this.groups[groupName] = [];
-            console.log('group: ' + groupName + ' added!!!');
+    function AddGroup(group){
+        if(this.GroupIndexOf(this.groups, group.Name) === -1) {
+            this.groups.push(Object.assign({}, group));
+            console.log('group: ' + group.Name + ' added!!!');
         }
         else
             console.log('The group is already exists!!!');
     },
 
     DeleteGroup:
-    function DeleteGroup(groupName){
-        var num = Object.keys(this.groups).length;
-        delete this.groups[groupName];
-        if(num > Object.keys(this.groups).length)
-            console.log('group: ' + groupName + ' deleted!!!');
-        else
-            console.log('The group not exists!!!');
-    },
+     function DeleteGroup(groupName){
+         var res = this.GroupIndexOf(this.groups, groupName);
+         if(res > -1) {
+             this.groups.splice(res, 1);
+             console.log('group: ' + groupName + ' deleted!!!');
+         }
+         else
+             console.log('The group not exists!!!');
+     },
 
     DisplayGroups:
     function DisplayGroups (){
-        for(var key in this.groups) {
-            console.log(key);
+        for(var i=0 ; i<this.groups.length ; i++) {
+            console.log(this.groups[i].Name);
         }
     },
 
-    IsGroupExists:
-    function IsGroupExists(groupArray, groupName){
-        for(var key in groupArray) {
-            if (key === groupName) {
-                return true;
+    GroupIndexOf:
+    function GroupIndexOf(groupArray ,groupName){
+        for(var i=0 ; i<groupArray.length ; i++){
+            if(groupArray[i].Name === groupName){
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 };
 

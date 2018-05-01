@@ -1,6 +1,6 @@
 function Group (){
     this.Name;
-    this.Users;
+    this.Users = [];
 }
 
 module.exports = Group;
